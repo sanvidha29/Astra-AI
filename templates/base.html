@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>
+        {% block title %}{% endblock %}
+    </title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/base.css') }}">
+
+    {% block css %}{% endblock %}
+
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- Sidebar -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+
+            <h2>🤖 ASTRA AI</h2>
+
+        </div>
+
+        <div class="menu">
+
+            <a href="{{ url_for('chat') }}" class="menu-item">
+                💬 AI Chat
+            </a>
+
+            <a href="{{ url_for('notes') }}" class="menu-item">
+                📝 Notes
+            </a>
+
+            <a href="{{ url_for('voice') }}" class="menu-item">
+                Talk to Astra 
+            </a>
+
+            <a href="{{ url_for('settings') }}" class="menu-item">
+                ⚙ Settings
+            </a>
+
+        </div>
+
+        {% if page == "chat" %}
+
+<div class="divider"></div>
+
+<button class="new-chat">
+    ➕ New Chat
+</button>
+
+<div class="history">
+
+    <h4>Chat History</h4>
+
+    <div class="history-item">
+        Python DSA
+    </div>
+
+    <div class="history-item">
+        Flask Project
+    </div>
+
+    <div class="history-item">
+        Resume
+    </div>
+
+</div>
+
+{% endif %}
+
+        <a href="{{ url_for('logout') }}" class="logout">
+
+            🚪 Logout
+
+        </a>
+
+    </aside>
+
+    <!-- Main Content -->
+
+    <main class="content {% if page == 'home' %}home-content{% endif %}">
+
+        {% block content %}
+
+        {% endblock %}
+
+    </main>
+
+</div>
+
+{% block script %}
+{% endblock %}
+
+</body>
+
+</html>

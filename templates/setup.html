@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ASTRA AI - Setup</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/setup.css') }}">
+
+</head>
+
+<body>
+
+    <div class="setup-container">
+
+        <div class="setup-card">
+
+            <h1>🤖 ASTRA AI</h1>
+
+            <p>Create your owner account to get started.</p>
+
+            <form action="{{ url_for('setup') }}" method="POST">
+
+                <input
+                    type="text"
+                    name="full_name"
+                    placeholder="Full Name"
+                    required>
+
+                <input
+                    type="text"
+                    name="username"
+                    placeholder="Username"
+                    required>
+
+                <input
+                    type="email"
+                    name="email"
+                    placeholder="Email"
+                    required>
+
+                <input
+                    type="number"
+                    name="age"
+                    placeholder="Age"
+                    required>
+
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                    required>
+
+                <input
+                    type="password"
+                    name="confirm_password"
+                    placeholder="Confirm Password"
+                    required>
+
+                <button type="submit">
+
+                    Create Account
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

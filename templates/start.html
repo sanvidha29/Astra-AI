@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ASTRA AI</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/start.css') }}">
+
+</head>
+
+<body>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+
+{% if messages %}
+
+<div class="popup">
+
+    {% for category, message in messages %}
+
+        <div class="popup-box {{ category }}">
+
+            {{ message }}
+
+        </div>
+
+    {% endfor %}
+
+</div>
+
+{% endif %}
+
+{% endwith %}
+
+<div class="container">
+
+    <div class="card">
+
+        <h1>🤖 ASTRA AI</h1>
+
+        <p>Your Personal AI Assistant</p>
+
+        <div class="buttons">
+
+           {% if not logged_in %}
+
+<a href="{{ url_for('create_owner_page') }}" class="btn secondary">
+    👤 Create Owner
+</a>
+
+<a href="{{ url_for('go_login') }}" class="btn secondary">
+    🔑 Login
+</a>
+
+{% endif %}
+
+<button class="btn primary" onclick="window.location.href='/start'">
+    🚀 START
+</button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+function startAstra(){
+
+    window.location.href="/start";
+
+}
+
+</script>
+
+</body>
+
+</html>

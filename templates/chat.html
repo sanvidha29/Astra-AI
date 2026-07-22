@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block title %}
+ASTRA AI
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet"
+href="{{ url_for('static', filename='css/chat.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<div class="chat-container">
+
+    <div class="chat-messages">
+
+        {% if chats %}
+
+            {% for chat in chats %}
+
+                {% if chat.sender == "user" %}
+
+                    <div class="message user">
+
+                        {{ chat.message }}
+
+                    </div>
+
+                {% else %}
+
+                    <div class="message astra">
+
+                        {{ chat.message }}
+
+                    </div>
+
+                {% endif %}
+
+            {% endfor %}
+
+        {% else %}
+
+            <div class="welcome">
+
+                <h1>Hello, {{ username }} 👋</h1>
+
+                <p>What can I help you with today?</p>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+    <form class="chat-input" method="POST">
+
+        <input
+            type="text"
+            name="message"
+            placeholder="Message ASTRA..."
+            autocomplete="off"
+            required>
+
+        <button type="submit">
+            ➤
+        </button>
+
+    </form>
+
+</div>
+
+{% endblock %}

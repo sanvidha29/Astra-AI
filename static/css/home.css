@@ -1,0 +1,25 @@
+.home-container{
+
+    width:100%;
+    height:calc(100vh - 80px);
+
+    display:flex;
+    flex-direction:column;
+
+    justify-content:center;
+    align-items:center;
+
+    text-align:center;
+}
+
+.home-container h1{
+
+    font-size:56px;
+    margin-bottom:15px;
+}
+
+.home-container p{
+
+    font-size:22px;
+    color:#94A3B8;
+}
