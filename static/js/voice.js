@@ -25,9 +25,10 @@ if (!SpeechRecognition) {
 
         recognition.start();
 
+        mic.classList.remove("speaking");
         mic.classList.add("listening");
 
-        status.innerText = "Listening...";
+        status.innerText = "🎤 Listening...";
 
     });
 
@@ -35,26 +36,26 @@ if (!SpeechRecognition) {
 
         const text = event.results[0][0].transcript;
 
-        status.innerText = "You said: " + text;
-
         mic.classList.remove("listening");
 
+        status.innerText = "🤖 ASTRA is thinking...";
+
         replyBox.style.display = "block";
-        replyBox.innerHTML = "🤖 ASTRA is thinking...";
+        replyBox.innerHTML = "Thinking...";
 
         try{
 
-            const response = await fetch("/voice-chat", {
+            const response = await fetch("/voice-chat",{
 
-                method: "POST",
+                method:"POST",
 
-                headers: {
-                    "Content-Type": "application/json"
+                headers:{
+                    "Content-Type":"application/json"
                 },
 
-                body: JSON.stringify({
+                body:JSON.stringify({
 
-                    message: text
+                    message:text
 
                 })
 
@@ -64,18 +65,26 @@ if (!SpeechRecognition) {
 
             replyBox.innerHTML = data.reply;
 
-            // ASTRA speaks
+            status.innerText = "🗣️ ASTRA is speaking...";
+
+            mic.classList.add("speaking");
 
             const speech = new SpeechSynthesisUtterance(data.reply);
 
             speech.lang = "en-US";
-
             speech.rate = 1;
-
             speech.pitch = 1;
 
-            window.speechSynthesis.cancel();
+            speech.onend = () => {
 
+                mic.classList.remove("speaking");
+
+                status.innerText =
+                    "Tap the ASTRA Orb to start listening";
+
+            };
+
+            window.speechSynthesis.cancel();
             window.speechSynthesis.speak(speech);
 
         }
@@ -84,8 +93,12 @@ if (!SpeechRecognition) {
 
             console.error(error);
 
+            mic.classList.remove("speaking");
+
+            status.innerText = "❌ Connection Failed";
+
             replyBox.innerHTML =
-                "❌ Unable to connect to ASTRA AI.";
+                "Unable to connect to ASTRA AI.";
 
         }
 
@@ -95,9 +108,10 @@ if (!SpeechRecognition) {
 
         console.log(event.error);
 
-        status.innerText = "Couldn't hear you.";
-
         mic.classList.remove("listening");
+
+        status.innerText =
+            "Couldn't hear you. Please try again.";
 
     };
 

@@ -10,19 +10,27 @@
 
     align-items:center;
 
+    text-align:center;
+
 }
+
+/* Heading */
 
 .voice-container h1{
 
-    font-size:42px;
+    font-size:48px;
 
-    margin-bottom:20px;
+    color:#ffffff;
+
+    margin-bottom:12px;
+
+    text-shadow:0 0 15px rgba(0,212,255,.25);
 
 }
 
-.voice-container p{
+.subtitle{
 
-    color:#94a3b8;
+    color:#CBD5E1;
 
     font-size:20px;
 
@@ -30,15 +38,86 @@
 
 }
 
-.mic-circle{
+/* ===========================
+        ASTRA ORB
+=========================== */
 
-    width:150px;
+.astra-orb{
 
-    height:150px;
+    position:relative;
+
+    width:260px;
+
+    height:260px;
+
+    cursor:pointer;
+
+    margin-bottom:35px;
+
+    animation:float 5s ease-in-out infinite;
+
+}
+
+/* Rings */
+
+.orbit{
+
+    position:absolute;
 
     border-radius:50%;
 
-    background:#2563eb;
+    border:2px solid rgba(0,212,255,.35);
+
+}
+
+/* Outer Ring */
+
+.orbit-1{
+
+    inset:0;
+
+    animation:rotate 16s linear infinite;
+
+    box-shadow:
+        0 0 30px rgba(0,212,255,.35);
+
+}
+
+/* Tilted Purple Ring */
+
+.orbit-2{
+
+    inset:18px;
+
+    border-color:#8B5CF6;
+
+    transform:rotate(65deg);
+
+    animation:rotateReverse 12s linear infinite;
+
+}
+
+/* Inner Ring */
+
+.orbit-3{
+
+    inset:40px;
+
+    border-color:#00D4FF;
+
+    animation:rotate 9s linear infinite;
+
+}
+
+/* Center */
+
+.orb-center{
+
+    position:absolute;
+
+    inset:70px;
+
+    border-radius:50%;
 
     display:flex;
 
@@ -46,25 +125,165 @@
 
     align-items:center;
 
-    font-size:60px;
+    background:linear-gradient(135deg,#00D4FF,#8B5CF6);
 
-    cursor:pointer;
+    box-shadow:
 
-    transition:.3s;
+    0 0 35px rgba(0,212,255,.5),
 
-    box-shadow:0 0 30px rgba(37,99,235,.5);
+    0 0 70px rgba(139,92,246,.25);
+
+}
+
+.orb-center span{
+
+    font-size:72px;
+
+    color:white;
+
+    font-weight:700;
+
+    user-select:none;
 
 }
 
-.mic-circle:hover{
+/* Status */
 
-    transform:scale(1.08);
+.status-box{
+
+    margin-top:10px;
+
+    margin-bottom:35px;
 
 }
+
+#status{
+
+    color:#CBD5E1;
+
+    font-size:20px;
+
+}
+
+/* Reply */
+
+#replyBox{
+
+    display:none;
+
+    max-width:750px;
+
+    padding:25px;
+
+    border-radius:20px;
+
+    background:rgba(255,255,255,.06);
+
+    backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    color:white;
+
+    font-size:18px;
+
+    line-height:1.8;
+
+}
+
+/* ===========================
+      LISTENING MODE
+=========================== */
 
 .listening{
 
     animation:pulse 1s infinite;
+
+}
+
+.listening .orb-center{
+
+    box-shadow:
+
+    0 0 45px rgba(0,212,255,.8),
+
+    0 0 90px rgba(139,92,246,.45);
+
+}
+/* ===========================
+      SPEAKING MODE
+=========================== */
+
+.speaking{
+
+    animation:float 2s ease-in-out infinite;
+
+}
+
+.speaking .orb-center{
+
+    box-shadow:
+        0 0 50px rgba(139,92,246,.9),
+        0 0 100px rgba(0,212,255,.5);
+
+}
+
+.speaking .orbit{
+
+    animation-duration:4s;
+
+}
+
+/* ===========================
+        ANIMATION
+=========================== */
+
+@keyframes rotate{
+
+    from{
+
+        transform:rotate(0deg);
+
+    }
+
+    to{
+
+        transform:rotate(360deg);
+
+    }
+
+}
+
+@keyframes rotateReverse{
+
+    from{
+
+        transform:rotate(360deg);
+
+    }
+
+    to{
+
+        transform:rotate(0deg);
+
+    }
+
+}
+
+@keyframes float{
+
+    0%,100%{
+
+        transform:translateY(0);
+
+    }
+
+    50%{
+
+        transform:translateY(-10px);
+
+    }
+
 }
 
 @keyframes pulse{
@@ -73,15 +292,11 @@
 
         transform:scale(1);
 
-        box-shadow:0 0 20px rgba(37,99,235,.4);
-
     }
 
     50%{
 
-        transform:scale(1.12);
-
-        box-shadow:0 0 45px rgba(37,99,235,.9);
+        transform:scale(1.06);
 
     }
 
@@ -89,30 +304,67 @@
 
         transform:scale(1);
 
-        box-shadow:0 0 20px rgba(37,99,235,.4);
-
     }
 
 }
 
-#replyBox{
+/* ===========================
+      ENERGY PARTICLES
+=========================== */
 
-    margin-top:40px;
+.particle{
 
-    max-width:700px;
+    position:absolute;
 
-    padding:20px;
+    width:8px;
+    height:8px;
 
-    background:#1e293b;
+    border-radius:50%;
 
-    border-radius:15px;
+    background:#00D4FF;
 
-    color:white;
+    box-shadow:
+        0 0 12px #00D4FF,
+        0 0 25px #8B5CF6;
 
-    font-size:18px;
+    animation:particleFloat 3s ease-in-out infinite;
 
-    line-height:1.7;
+}
 
-    display:none;
+/* Positions */
+
+.p1{ top:8%; left:48%; }
+
+.p2{ top:24%; right:4%; }
+
+.p3{ top:50%; right:-2%; }
+
+.p4{ bottom:18%; right:10%; }
+
+.p5{ bottom:6%; left:48%; }
+
+.p6{ bottom:20%; left:6%; }
+
+.p7{ top:50%; left:-2%; }
+
+.p8{ top:20%; left:8%; }
+
+@keyframes particleFloat{
+
+    0%,100%{
+
+        transform:scale(1);
+
+        opacity:.5;
+
+    }
+
+    50%{
+
+        transform:scale(1.6);
+
+        opacity:1;
+
+    }
 
 }

@@ -28,17 +28,49 @@ def create_database():
     """)
 
     cursor.execute("""
-CREATE TABLE IF NOT EXISTS chats (
+      CREATE TABLE IF NOT EXISTS chats (
+
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+      username TEXT NOT NULL,
+
+      sender TEXT NOT NULL,
+
+      message TEXT NOT NULL,
+
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+
+)
+""")
+
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS ai_settings(
 
     id INTEGER PRIMARY KEY AUTOINCREMENT,
 
-    username TEXT NOT NULL,
+    username TEXT UNIQUE,
 
-    sender TEXT NOT NULL,
+    ai_style TEXT DEFAULT 'Professional',
 
-    message TEXT NOT NULL,
+    response_length TEXT DEFAULT 'Medium',
 
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    memory_enabled INTEGER DEFAULT 1
+
+)
+""")
+
+    cursor.execute("""
+CREATE TABLE IF NOT EXISTS voice_settings(
+
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+    username TEXT UNIQUE,
+
+    voice_enabled INTEGER DEFAULT 1,
+
+    voice_speed TEXT DEFAULT 'Normal',
+
+    voice_volume INTEGER DEFAULT 100
 
 )
 """)
@@ -121,6 +153,7 @@ def get_chat_history(username):
 
     return chats
 
+
 def update_user(full_name, username, email, age):
 
     connection = get_connection()
@@ -145,25 +178,163 @@ def update_user(full_name, username, email, age):
     connection.commit()
     connection.close()
 
+
 def change_password(username, new_password):
 
     connection = get_connection()
     cursor = connection.cursor()
 
     cursor.execute("""
-
         UPDATE users
-
         SET password = ?
-
         WHERE username = ?
-
     """, (
-
         new_password,
         username
-
     ))
 
     connection.commit()
     connection.close()
+
+
+def get_ai_settings(username):
+
+    connection = get_connection()
+    cursor = connection.cursor()
+
+    cursor.execute("""
+        SELECT *
+        FROM ai_settings
+        WHERE username = ?
+    """, (username,))
+
+    settings = cursor.fetchone()
+
+    connection.close()
+
+    return settings
+
+
+def update_ai_settings(
+    username,
+    ai_style,
+    response_length,
+    memory_enabled
+):
+
+    connection = get_connection()
+    cursor = connection.cursor()
+
+    cursor.execute("""
+        SELECT *
+        FROM ai_settings
+        WHERE username = ?
+    """, (username,))
+
+    settings = cursor.fetchone()
+
+    if settings:
+
+        cursor.execute("""
+            UPDATE ai_settings
+            SET
+                ai_style = ?,
+                response_length = ?,
+                memory_enabled = ?
+            WHERE username = ?
+        """, (
+            ai_style,
+            response_length,
+            memory_enabled,
+            username
+        ))
+
+    else:
+
+        cursor.execute("""
+            INSERT INTO ai_settings(
+                username,
+                ai_style,
+                response_length,
+                memory_enabled
+            )
+            VALUES (?, ?, ?, ?)
+        """, (
+            username,
+            ai_style,
+            response_length,
+            memory_enabled
+        ))
+
+def get_voice_settings(username):
+
+    connection = get_connection()
+    cursor = connection.cursor()
+
+    cursor.execute("""
+        SELECT *
+        FROM voice_settings
+        WHERE username = ?
+    """, (username,))
+
+    settings = cursor.fetchone()
+
+    connection.close()
+
+    return settings
+
+def update_voice_settings(
+    username,
+    voice_enabled,
+    voice_speed,
+    voice_volume
+):
+
+    connection = get_connection()
+    cursor = connection.cursor()
+
+    cursor.execute("""
+        SELECT *
+        FROM voice_settings
+        WHERE username = ?
+    """, (username,))
+
+    settings = cursor.fetchone()
+
+    if settings:
+
+        cursor.execute("""
+            UPDATE voice_settings
+            SET
+                voice_enabled = ?,
+                voice_speed = ?,
+                voice_volume = ?
+            WHERE username = ?
+        """, (
+            voice_enabled,
+            voice_speed,
+            voice_volume,
+            username
+        ))
+
+    else:
+
+        cursor.execute("""
+            INSERT INTO voice_settings(
+                username,
+                voice_enabled,
+                voice_speed,
+                voice_volume
+            )
+            VALUES (?, ?, ?, ?)
+        """, (
+            username,
+            voice_enabled,
+            voice_speed,
+            voice_volume
+        ))
+
+    connection.commit()
+    connection.close()
+
+   

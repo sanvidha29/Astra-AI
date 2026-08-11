@@ -1,0 +1,99 @@
+  <!-- AI -->
+
+<div id="ai" class="tab-content">
+
+    <h1>AI Settings</h1>
+
+    <form method="POST"
+          onsubmit="localStorage.setItem('activeTab','ai')">
+
+        <input
+            type="hidden"
+            name="form_type"
+            value="ai">
+
+        <!-- Response Style -->
+
+        <div class="form-group">
+
+            <label>Response Style</label>
+
+            <select name="ai_style">
+
+                <option value="Professional"
+                    {% if ai_settings and ai_settings["ai_style"] == "Professional" %}selected{% endif %}>
+                    Professional
+                </option>
+
+                <option value="Friendly"
+                    {% if ai_settings and ai_settings["ai_style"] == "Friendly" %}selected{% endif %}>
+                    Friendly
+                </option>
+
+                <option value="Creative"
+                    {% if ai_settings and ai_settings["ai_style"] == "Creative" %}selected{% endif %}>
+                    Creative
+                </option>
+
+            </select>
+
+        </div>
+
+        <!-- Response Length -->
+
+        <div class="form-group">
+
+            <label>Response Length</label>
+
+            <select name="response_length">
+
+                <option value="Short"
+                    {% if ai_settings and ai_settings["response_length"] == "Short" %}selected{% endif %}>
+                    Short
+                </option>
+
+                <option value="Medium"
+                    {% if ai_settings and ai_settings["response_length"] == "Medium" %}selected{% endif %}>
+                    Medium
+                </option>
+
+                <option value="Detailed"
+                    {% if ai_settings and ai_settings["response_length"] == "Detailed" %}selected{% endif %}>
+                    Detailed
+                </option>
+
+            </select>
+
+        </div>
+
+        <!-- Memory -->
+
+        <div class="form-group">
+
+            <label>
+
+                <input
+                    type="checkbox"
+                    name="memory_enabled"
+
+                    {% if ai_settings and ai_settings["memory_enabled"] %}
+                    checked
+                    {% endif %}>
+
+                Enable Conversation Memory
+
+            </label>
+
+        </div>
+
+        <button
+            type="submit"
+            class="save-btn">
+
+            Save AI Settings
+
+        </button>
+
+    </form>
+
+</div>

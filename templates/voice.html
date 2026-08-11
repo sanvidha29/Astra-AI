@@ -1,36 +1,63 @@
 {% extends "base.html" %}
 
 {% block title %}
-Voice Assistant
+ASTRA Voice Assistant
 {% endblock %}
 
 {% block css %}
 <link rel="stylesheet"
-href="{{ url_for('static', filename='css/voice.css') }}">
+      href="{{ url_for('static', filename='css/voice.css') }}">
 {% endblock %}
 
 {% block content %}
 
 <div class="voice-container">
 
-    <h1>🎤 ASTRA Voice Assistant</h1>
+    <h1>ASTRA Voice Assistant</h1>
 
-    <p id="status">
-        Click the microphone to start listening
+    <p class="subtitle">
+        Speak naturally with ASTRA AI
     </p>
-    <div id="replyBox"> </div>
 
-    <div class="mic-circle" id="micButton">
+    <!-- ASTRA Orb -->
+    <div class="astra-orb" id="micButton">
 
-        
+        <div class="orbit orbit-1"></div>
+
+        <div class="orbit orbit-2"></div>
+
+        <div class="orbit orbit-3"></div>
+
+        <div class="orb-center">
+         <span>A</span>
+      </div>
+     <div class="particle p1"></div>
+         <div class="particle p2"></div>
+<div class="particle p3"></div>
+<div class="particle p4"></div>
+<div class="particle p5"></div>
+<div class="particle p6"></div>
+<div class="particle p7"></div>
+<div class="particle p8"></div>
+    </div>
+
+    <!-- Voice Status -->
+    <div class="status-box">
+
+        <span id="status">
+            Tap the ASTRA Orb to start listening
+        </span>
 
     </div>
+
+    <!-- AI Reply -->
+    <div id="replyBox"></div>
 
 </div>
 
 {% endblock %}
 
-{% block script %}
+{% block js %}
 
 <script src="{{ url_for('static', filename='js/voice.js') }}"></script>
 

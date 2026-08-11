@@ -49,11 +49,11 @@
 
            {% if not logged_in %}
 
-<a href="{{ url_for('create_owner_page') }}" class="btn secondary">
+<a href="{{ url_for('auth.create_owner_page') }}" class="btn secondary">
     👤 Create Owner
 </a>
 
-<a href="{{ url_for('go_login') }}" class="btn secondary">
+<a href="{{ url_for('auth.go_login') }}" class="btn secondary">
     🔑 Login
 </a>
 

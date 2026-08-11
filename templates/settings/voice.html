@@ -1,0 +1,94 @@
+ <!-- Voice -->
+
+<div id="voice" class="tab-content">
+
+    <h2>🎤 Voice Settings</h2>
+
+    <form method="POST">
+
+        <input type="hidden"
+               name="form_type"
+               value="voice">
+
+        <div class="setting-group">
+
+            <label>
+
+                <input type="checkbox"
+                       name="voice_enabled"
+
+                       {% if voice_settings and voice_settings["voice_enabled"] %}
+                       checked
+                       {% endif %}>
+
+                Enable Voice Response
+
+            </label>
+
+        </div>
+
+        <div class="setting-group">
+
+            <label>Voice Speed</label>
+
+            <select name="voice_speed">
+
+                <option value="Slow"
+                    {% if voice_settings and voice_settings["voice_speed"] == "Slow" %}
+                    selected
+                    {% endif %}>
+                    Slow
+                </option>
+
+                <option value="Normal"
+                    {% if not voice_settings or voice_settings["voice_speed"] == "Normal" %}
+                    selected
+                    {% endif %}>
+                    Normal
+                </option>
+
+                <option value="Fast"
+                    {% if voice_settings and voice_settings["voice_speed"] == "Fast" %}
+                    selected
+                    {% endif %}>
+                    Fast
+                </option>
+
+            </select>
+
+        </div>
+
+        <div class="setting-group">
+
+            <label>
+
+                Voice Volume
+
+                <span id="volume-value">
+                    {{ voice_settings["voice_volume"] if voice_settings else 100 }}
+                </span>%
+
+            </label>
+
+            <input
+                type="range"
+                min="0"
+                max="100"
+                name="voice_volume"
+                id="voice_volume"
+
+                value="{{ voice_settings['voice_volume'] if voice_settings else 100 }}">
+
+        </div>
+
+        <button
+            type="submit"
+            class="save-btn">
+
+            Save Voice Settings
+
+        </button>
+
+    </form>
+
+</div>
